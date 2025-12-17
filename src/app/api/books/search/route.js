@@ -1,5 +1,27 @@
 import { NextResponse } from "next/server";
 
+function bestCover(info) {
+  const img =
+    info?.imageLinks?.extraLarge ||
+    info?.imageLinks?.large ||
+    info?.imageLinks?.medium ||
+    info?.imageLinks?.small ||
+    info?.imageLinks?.thumbnail ||
+    info?.imageLinks?.smallThumbnail ||
+    "";
+
+  if (!img) return "";
+
+  let url = img.replace(/^http:\/\//i, "https://");
+
+  if (url.includes("books.google.com/books/content")) {
+    if (url.includes("zoom=")) url = url.replace(/zoom=\d+/i, "zoom=5");
+    else url += (url.includes("?") ? "&" : "?") + "zoom=5";
+  }
+
+  return url;
+}
+
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const q = (searchParams.get("q") || "").trim();
@@ -13,7 +35,6 @@ export async function GET(req) {
   try {
     const res = await fetch(url);
 
-    // 🔎 TEMP DEBUG
     const text = await res.text();
     console.log("Google Books status:", res.status);
     console.log("Google Books response:", text.slice(0, 500));
@@ -33,7 +54,7 @@ export async function GET(req) {
         googleBooksId: item.id,
         title: info.title || "Untitled",
         authors: info.authors || [],
-        coverImage: info.imageLinks?.thumbnail || info.imageLinks?.smallThumbnail || "",
+        coverImage: bestCover(info),
       };
     });
 
