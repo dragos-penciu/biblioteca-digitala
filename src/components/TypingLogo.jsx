@@ -13,11 +13,11 @@ export default function TypingLogo({text, speed = 90}) {
   }, [text, speed]);
 
   return (
-    <span className="min-w-1/2 inline-flex items-baseline">
-      <span className="inline-block text-primary text-4xl sm:text-5xl font-semibold tracking-tight">
+    <span className="min-w-1/2 inline-flex justify-center items-baseline">
+      <span className="inline-flex font-serif text-primary text-4xl sm:text-5xl font-semibold tracking-tight">
         {text.slice(0, i)}
       </span>
-      <span className="text-primary ml-[0.1em] w-[0.2em] h-[2.7em] bg-current caret-blink inline-block relative top-2" />
+      <span className="text-primary ml-[0.2em] w-[0.18em] h-[2.7em] md:h-[3.2em] bg-current caret-blink inline-block relative top-2" />
     </span>
   );
 }

@@ -10,7 +10,7 @@ export default function PopularGrid({ items }) {
   }
 
   return (
-    <section className="mt-8">
+    <section className="mt-8 min-w-full md:px-32">
       <div className="flex items-center justify-between gap-4">
         <h2 className="text-lg sm:text-xl font-semibold text-primary">
           Popular
@@ -20,18 +20,20 @@ export default function PopularGrid({ items }) {
         </p>
       </div>
 
-      <div
+      <div className="mt-2 w-fit mx-auto">
+        <div
         className="
-          mt-4 grid gap-4
+          grid gap-4
           grid-cols-2
           sm:grid-cols-3
           md:grid-cols-4
           lg:grid-cols-5
         "
-      >
-        {items.map((b) => (
-          <BookCard key={b.googleBooksId} book={b} />
-        ))}
+        >
+          {items.map((b) => (
+            <BookCard key={b.googleBooksId} book={b} />
+          ))}
+        </div>
       </div>
     </section>
   );

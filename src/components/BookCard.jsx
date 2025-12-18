@@ -30,7 +30,7 @@ export default function BookCard({ book }) {
       </div>
 
       <div className="p-3">
-        <div className="text-sm font-semibold tracking-tight text-primary line-clamp-2">
+        <div className="text-sm font-semibold tracking-tight text-primary line-clamp-1">
           {title}
         </div>
 

@@ -14,11 +14,11 @@ export default async function Home() {
   const data = await getPopular();
 
   return (
-    <main className="select-none bg-bg min-h-screen flex flex-col items-start justify-start p-8">
+    <main className="select-none bg-bg min-h-full flex flex-col items-start justify-start pt-8 px-4 md:p-24 md:pt-12">
       <div className="min-w-full flex justify-center items-center">
         <TypingLogo text="booklog." speed={60} />
       </div>
-      <div className="mt-6 w-full">
+      <div className="flex justify-center mt-6 w-full">
         <SearchBar />
       </div>
       <PopularGrid items={data.items} />

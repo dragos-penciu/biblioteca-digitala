@@ -94,7 +94,7 @@ export default function SearchBar({
   }
 
   return (
-    <div className="relative w-full max-w-2xl">
+    <div className="relative min-w-full md:px-32 md:mt-2">
       <div className="flex items-center gap-2 rounded-2xl bg-surface border border-border px-4 py-3 shadow-sm">
         <input
           ref={inputRef}
@@ -116,7 +116,7 @@ export default function SearchBar({
                 setOpen(false);
                 inputRef.current?.focus();
               }}
-              className="text-muted hover:text-primary transition text-sm"
+              className="text-muted cursor-pointer hover:text-primary transition text-sm"
               aria-label="Clear search"
               type="button"
             >
@@ -128,14 +128,13 @@ export default function SearchBar({
 
       {open && (books.length > 0 || users.length > 0 || error) && (
         <div
-          className="absolute z-50 mt-2 w-full overflow-hidden rounded-2xl border border-border bg-surface shadow-lg"
+          className="absolute z-50 mt-2 w-full md:pr-64 overflow-hidden"
           onMouseDown={(e) => e.preventDefault()} 
         >
           {error ? (
-            <div className="p-4 text-sm text-muted">{error}</div>
+            <div className="p-4 text-sm text-muted rounded-2xl border border-border bg-surface shadow-lg">{error}</div>
           ) : (
-            <div className="max-h-[60vh] overflow-auto">
-              {/* Books */}
+            <div className="max-h-[60vh] overflow-auto rounded-2xl border border-border bg-surface shadow-lg">
               <Section title="Books" hidden={books.length === 0}>
                 {books.slice(0, 6).map((b) => (
                   <Link
@@ -167,7 +166,6 @@ export default function SearchBar({
                 ))}
               </Section>
 
-              {/* Users */}
               <Section title="Users" hidden={users.length === 0}>
                 {users.slice(0, 6).map((u) => (
                   <Link
