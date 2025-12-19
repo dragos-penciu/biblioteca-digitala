@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import ReviewCard from "@/components/ReviewCard";
+import { headers } from "next/headers";
 
 const bookCache = new Map();
 
@@ -47,8 +48,6 @@ async function fetchBook(googleBooksId) {
   bookCache.set(googleBooksId, book);
   return book;
 }
-
-import { headers } from "next/headers";
 
 async function getUserReviews(username) {
   const h = await headers();

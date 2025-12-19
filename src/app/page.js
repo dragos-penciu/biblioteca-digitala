@@ -1,11 +1,18 @@
 import TypingLogo from "@/components/TypingLogo";
 import SearchBar from "@/components/SearchBar";
 import PopularGrid from "@/components/PopularGrid";
+import { headers } from "next/headers";
 
 async function getPopular() {
-  const res = await fetch("/api/home?limit=20", {
+  const h = await headers();
+  const host = h.get("host");
+  const proto = h.get("x-forwarded-proto") || "http";
+  const origin = `${proto}://${host}`;
+
+  const res = await fetch(`${origin}/api/home?limit=20`, {
     cache: "no-store",
   });
+
   if (!res.ok) return { items: [] };
   return res.json();
 }
