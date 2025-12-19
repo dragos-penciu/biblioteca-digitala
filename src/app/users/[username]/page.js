@@ -55,14 +55,17 @@ async function getUserReviews(username) {
   const proto = h.get("x-forwarded-proto") || "http";
   const origin = `${proto}://${host}`;
 
-  const res = await fetch(
-    `${origin}/api/users/${encodeURIComponent(username)}/reviews`,
-    { cache: "no-store" }
-  );
+  const url = `${origin}/api/users/${encodeURIComponent(username)}/reviews`;
+
+  const res = await fetch(url, { cache: "no-store" });
+
+  const text = await res.text().catch(() => "");
+  console.log("getUserReviews:", { url, status: res.status, ok: res.ok, body: text.slice(0, 400) });
 
   if (res.status === 404) return null;
-  if (!res.ok) throw new Error("Failed to load user reviews");
-  return res.json();
+  if (!res.ok) throw new Error(`Failed to load user reviews (status ${res.status})`);
+
+  return JSON.parse(text);
 }
 
 
