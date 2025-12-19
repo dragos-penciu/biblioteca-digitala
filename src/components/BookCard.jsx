@@ -4,6 +4,8 @@ import Image from "next/image";
 export default function BookCard({ book }) {
   const { googleBooksId, title, authors, coverImage, reviewCount, avgRating } = book;
 
+  const avg = avgRating != null ? Number(avgRating) : null;
+
   return (
     <Link
       href={`/books/${googleBooksId}`}
@@ -13,7 +15,7 @@ export default function BookCard({ book }) {
         overflow-hidden
       "
     >
-      <div className="relative w-full aspect-[2/3] bg-bg">
+      <div className="relative w-full aspect-2/3 bg-bg">
         {coverImage ? (
           <Image
             src={coverImage}
@@ -43,9 +45,9 @@ export default function BookCard({ book }) {
             {reviewCount ?? 0} review{reviewCount === 1 ? "" : "s"}
           </span>
 
-          {avgRating != null ? (
+          {avg != null && Number.isFinite(avg) ? (
             <span className="text-primary font-medium">
-              ★ {avgRating}
+              ★ {avg.toFixed(2)}
             </span>
           ) : (
             <span className="text-muted">—</span>

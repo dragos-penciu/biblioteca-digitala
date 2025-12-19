@@ -54,8 +54,8 @@ export async function GET(req, ctx) {
     .sort({ createdAt: -1 })
     .lean();
 
-  const avgRating =
-    reviews.length === 0 ? null : Math.round((reviews.reduce((sum, r) => sum + (r.rating || 0), 0) / reviews.length) * 2) / 2;
+  const avgRating = reviews.length === 0 ? null : reviews.reduce((sum, r) => sum + Number(r.rating || 0), 0) / reviews.length;
+
 
   return NextResponse.json({
     book: gb.book,

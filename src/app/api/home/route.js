@@ -75,7 +75,7 @@ export async function GET(req) {
       return {
         ...book,
         reviewCount: row.reviewCount,
-        avgRating: row.avgRating ? Math.round(row.avgRating * 2) / 2 : null,
+        avgRating: row.avgRating ? row.avgRating.toFixed(2) : null,
       };
     })
   );
