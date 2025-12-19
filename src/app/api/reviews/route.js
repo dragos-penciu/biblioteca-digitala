@@ -4,6 +4,8 @@ import Review from "@/models/Review";
 import { getAuthPayload } from "@/lib/requireAuth";
 import User from "@/models/User";
 
+export const runtime = "nodejs";
+
 
 export async function POST(req) {
   const payload = getAuthPayload(req);

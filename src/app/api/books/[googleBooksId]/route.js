@@ -3,6 +3,8 @@ import { connectDB } from "@/lib/db";
 import Review from "@/models/Review";
 import User from "@/models/User";
 
+export const runtime = "nodejs";
+
 async function fetchBook(googleBooksId) {
   const key = process.env.GOOGLE_BOOKS_API_KEY;
   const base = `https://www.googleapis.com/books/v1/volumes/${encodeURIComponent(googleBooksId)}`;

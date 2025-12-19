@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 
+export const runtime = "nodejs";
+
+
 function bestCover(info) {
   const img =
     info?.imageLinks?.extraLarge ||

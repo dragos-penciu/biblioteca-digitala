@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Review from "@/models/Review";
 
+export const runtime = "nodejs";
+
+
 const bookCache = new Map();
 
 function bestCover(info) {
