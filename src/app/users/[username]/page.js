@@ -48,15 +48,24 @@ async function fetchBook(googleBooksId) {
   return book;
 }
 
+import { headers } from "next/headers";
+
 async function getUserReviews(username) {
+  const h = await headers();
+  const host = h.get("host");
+  const proto = h.get("x-forwarded-proto") || "http";
+  const origin = `${proto}://${host}`;
+
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL || "http://127.0.0.1:3000"}/api/users/${encodeURIComponent(username)}/reviews`,
+    `${origin}/api/users/${encodeURIComponent(username)}/reviews`,
     { cache: "no-store" }
   );
+
   if (res.status === 404) return null;
   if (!res.ok) throw new Error("Failed to load user reviews");
   return res.json();
 }
+
 
 export default async function UserProfilePage({ params }) {
   const { username } = await params;

@@ -3,7 +3,7 @@ import SearchBar from "@/components/SearchBar";
 import PopularGrid from "@/components/PopularGrid";
 
 async function getPopular() {
-  const res = await fetch("http://127.0.0.1:3000/api/home?limit=20", {
+  const res = await fetch("/api/home?limit=20", {
     cache: "no-store",
   });
   if (!res.ok) return { items: [] };
