@@ -6,7 +6,6 @@ import User from "@/models/User";
 import Review from "@/models/Review";
 
 function getUsernameFromPath(req) {
-  // /api/users/<username>/reviews
   const pathname = new URL(req.url).pathname;
   const m = pathname.match(/^\/api\/users\/([^/]+)\/reviews\/?$/);
   return m ? decodeURIComponent(m[1]) : "";
@@ -23,15 +22,11 @@ export async function GET(req) {
 
   await connectDB();
 
-  // Debug (keep for now)
-  console.log("API username:", cleanUsername);
-
   const user = await User.findOne({ username: cleanUsername })
     .select("_id username")
     .lean();
 
   if (!user) {
-    console.log("USER NOT FOUND BRANCH HIT FOR:", cleanUsername);
     return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
 

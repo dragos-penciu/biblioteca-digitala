@@ -66,7 +66,7 @@ export default function WriteReviewBox({ googleBooksId }) {
       {!open ? (
         <button
           onClick={() => setOpen(true)}
-          className="text-sm font-medium text-primary hover:underline"
+          className="text-sm cursor-pointer font-medium text-primary hover:underline"
         >
           Write a review
         </button>
@@ -77,7 +77,7 @@ export default function WriteReviewBox({ googleBooksId }) {
             <select
               value={rating}
               onChange={(e) => setRating(Number(e.target.value))}
-              className="rounded-lg border border-border bg-surface px-2 py-1 text-sm"
+              className="rounded-lg cursor-pointer border border-border bg-surface px-2 py-1 text-sm"
             >
               {[5, 4.5, 4, 3.5, 3, 2.5, 2, 1.5, 1].map((r) => (
                 <option key={r} value={r}>
@@ -92,7 +92,7 @@ export default function WriteReviewBox({ googleBooksId }) {
             onChange={(e) => setText(e.target.value)}
             rows={4}
             placeholder="What did you think?"
-            className="w-full resize-none rounded-xl border border-border bg-bg p-3 text-sm outline-none focus:ring-2 focus:ring-accent/60"
+            className="w-full resize-none rounded-xl border border-border bg-surface p-3 text-sm outline-none focus:ring-2 focus:ring-accent/60"
           />
 
           {error && <div className="text-sm text-red-400">{error}</div>}

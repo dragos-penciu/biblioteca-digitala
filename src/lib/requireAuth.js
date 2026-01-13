@@ -1,4 +1,3 @@
-// lib/requireAuth.js
 import { verifyToken } from "@/lib/auth";
 
 export function getAuthPayload(req) {

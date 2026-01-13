@@ -86,6 +86,7 @@ async function getBookReviews(googleBooksId) {
               text: 1,
               createdAt: 1,
               username: { $ifNull: ["$user.username", "unknown"] },
+              userId: { $toString: "$userId"},
             },
           },
         ],
@@ -105,7 +106,6 @@ async function getBookReviews(googleBooksId) {
   const stats = (result?.stats && result.stats[0]) || { reviewCount: 0, avgRating: null };
   const avgRounded = stats.avgRating != null ? Math.round(stats.avgRating * 100) / 100 : null;
 
-
   return {
     reviews: result?.reviews || [],
     reviewCount: stats.reviewCount || 0,
@@ -120,6 +120,16 @@ export default async function BookPage({ params }) {
   if (!book) return notFound();
 
   const { reviews, reviewCount, avgRating } = await getBookReviews(googleBooksId);
+
+  const safeReviews = reviews.map((r) => ({
+    ...r,
+    _id: String(r._id),
+    userId: r.userId != null ? String(r.userId) : null,
+    createdAt: r.createdAt ? new Date(r.createdAt).toISOString() : null,
+    rating: Number(r.rating),
+    text: String(r.text ?? ""),
+    username: String(r.username ?? "unknown"),
+  }));
 
   return (
     <main className="min-h-screen bg-bg text-primary px-6 py-10">
@@ -222,7 +232,7 @@ export default async function BookPage({ params }) {
                 No one has reviewed this book yet.
               </div>
             ) : (
-              reviews.map((r) => <BookReviewCard key={String(r._id)} review={r} />)
+              safeReviews.map((r) => <BookReviewCard key={String(r._id)} review={r} />)
             )}
           </div>
         </section>
